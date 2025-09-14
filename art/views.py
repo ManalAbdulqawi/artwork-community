@@ -4,5 +4,5 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-def my_community(request):
-    return HttpResponse("Hello, community!")
+def my_art(request):
+    return HttpResponse("Hello, this my art!")

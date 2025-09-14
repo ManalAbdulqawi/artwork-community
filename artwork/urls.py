@@ -16,11 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from community.views import my_community
+from art.views import my_art
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('community/', my_community, name='community'),
+    path('art/', my_art, name='art'),
 
 ]
