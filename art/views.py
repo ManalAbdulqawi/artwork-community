@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.views import generic
+from .models import Artwork
 
 # Create your views here.
+class ArtworkList(generic.ListView):
+    queryset = Artwork.objects.all()
+    template_name = "artwork_list.html"
 
-def my_art(request):
-    return HttpResponse("Hello, this my art!")
