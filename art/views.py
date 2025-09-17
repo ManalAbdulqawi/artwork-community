@@ -5,5 +5,4 @@ from .models import Artwork
 # Create your views here.
 class ArtworkList(generic.ListView):
     queryset = Artwork.objects.all()
-    template_name = "artwork_list.html"
-
+    template_name = "art/index.html"

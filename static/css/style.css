@@ -1,0 +1,58 @@
+body {
+    background-color: #F9FAFC;
+    padding-top: 70px;
+}
+
+.logo {
+    font-family: Paprika, sans-serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    background: linear-gradient(to right, #cf3a04, #1434ed,rgb(225, 11, 182),rgb(2, 159, 2));
+    -webkit-background-clip: text; /* for Safari/Chrome */
+    background-clip: text;
+    color: transparent; /* hide original text color */
+    -webkit-text-fill-color: transparent; /* for Safari */
+    
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+.column {
+    grid-column: span 3;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.thin {
+    font-weight: 500;
+}
+
+.light-bg {
+    background-color: #fff;
+}
+
+.dark-bg {
+    background: linear-gradient(to right, #cf3a04, #1434ed,rgb(225, 11, 182),rgb(2, 159, 2));;
+}
+
+.main-bg {
+    background-color: #f3f2f2;
+}
+
+.link:hover,
+.link:active {
+    text-decoration: underline;
+    text-decoration-color:  #cf3a04;
+    text-decoration-thickness:3px ;
+}
+
+
+
+
+
