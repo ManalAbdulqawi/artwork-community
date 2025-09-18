@@ -53,7 +53,7 @@ body {
 }
 
 .main-bg {
-    background-color: #f3f2f2;
+    background-color: white;
 }
 
 .link:hover,
@@ -61,16 +61,22 @@ body {
     text-decoration: underline;
     text-decoration-color:  #cf3a04;
     text-decoration-thickness:3px ;
+    color: #026b0b;
 }
 
 
 .art-link {
     color: #0a0301;
+    text-decoration: none;
 }
 .art-link:hover {
-    color: #026b0b;
+    color: #13fe26;
 }
 
+h4 {
+  display: inline; /* ensures the text stays on one line */
+  margin: 0; /* optional */
+}
 
 
 

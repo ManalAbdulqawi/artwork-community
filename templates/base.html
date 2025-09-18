@@ -1,4 +1,6 @@
 {% url 'home' as home_url %}
+{% url 'artists_list' as artists_url %}
+
 {% load static %}
 
 
@@ -31,8 +33,13 @@
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}"><span class="logo">Art Work<span
-                        class="thin"> Community</span></span></a>
+            
+            <a class="navbar-brand" href="{% url 'home' %}">
+               <div style="display: flex; flex-direction: column; align-items: center;">
+                 <span class="logo">Art Work</span>
+ 
+                </div>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,7 +48,11 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'home' %}">Home</a>
+                            href="{% url 'home' %}">Artwork</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link {% if request.path == artists_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'artists_list' %}">Artists</a>
                     </li>
 
                 </ul>

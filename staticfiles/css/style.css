@@ -33,7 +33,7 @@ body {
 }
 .img-item:hover{
     transition: transform 0.8s;
-    transform: scale(1.1) translateY(-20px);;
+    transform: scale(1.1) translateY(-10px);;
 }
 
 .scale {
@@ -53,8 +53,9 @@ body {
 }
 
 .main-bg {
-    background-color: #f3f2f2;
+    background-color: white;
 }
+
 
 .link:hover,
 .link:active {
@@ -68,7 +69,7 @@ body {
     color: #0a0301;
 }
 .art-link:hover {
-    color: #026b0b;
+    color: #015609;
 }
 
 

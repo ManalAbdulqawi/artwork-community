@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container-fluid text-center justify-content-center">
+  <div class="heading pt-4">
+    <h3 class="pt-4">The Artists List</h3>
+  </div>
+
+  <!-- Bootstrap 5: row-cols-3 creates 3 columns per row -->
+  <div class="row row-cols-3 g-3 py-5 px-lg-5 px-sm-0 justify-content-center ">
+    {% for artist in object_list %}
+      <div class="column">
+        {% if artist.first_name and artist.last_name %}
+          <a href="{% url 'artist_artwork' artist_id=artist.id %}" class="art-link"><h4>{{ artist.first_name }} {{ artist.last_name }}</h4></a>
+        {% else %}
+          <a href="#" class="art-link"><h4>{{ artist.username }}</h4></a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

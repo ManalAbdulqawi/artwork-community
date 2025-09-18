@@ -6,14 +6,14 @@
 <div class="container mt-5 mb-2">
   <div class="d-flex flex-column flex-md-row align-items-start">
     <!-- Image on the left -->
-    <div class="flex-shrink-0 mb-3 mb-md-0 me-md-4" style="max-width: 60%;">
+    <div class="flex-shrink-0 mb-5 me-md-4 scale">
       <img src="{{ art.art_image.url }}" class="img-fluid" alt="{{ art.title }}">
     </div>
     
     <!-- Content on the right -->
     <div>
       <h2>{{ art.title }}</h2>
-      <small class="fs-6 mb-1 d-block">Artist: {{ art.artist }}</small>
+      <small class="fs-6 mb-1 d-block">Artist: {% if art.artist.first_name and art.artist.last_name  %}{{ art.artist.first_name }} {{ art.artist.last_name }} {% else %} {{ art.artist }} {% endif %}</small>
        {% if art.size == 0  %} <small class="fs-6 mb-4 d-block">Size: Small </small>
        {% elif art.size == 1 %} <small class="fs-6 mb-4 d-block">Size: Medium </small>
        {% else %} <small class="fs-6 mb-4 d-block">Size: Large </small>
