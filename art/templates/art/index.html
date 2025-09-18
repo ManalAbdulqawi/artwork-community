@@ -15,8 +15,9 @@
                     
                       <div class="img-item text-center">
                         <img src="{{ art.art_image.url}}" class="img-fluid" alt="{{ art.title }}">
-                        <h6 class="mt-2 mb-0">{{ art.title }}</h6>
-                        <small class="text-muted mb-4 d-block">Artist: {{ art.artist }}</small>
+                        <a href="{% url 'artwork_detail' art.slug %}" class="art-link">
+                        <h5 class="mt-2 mb-0">{{ art.title }}</h6></a>
+                        <small class="fs-6 mb-4 d-block">Artist: {{ art.artist }}</small>
                       </div>
                             
                         

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5 mb-2">
+  <div class="d-flex flex-column flex-md-row align-items-start">
+    <!-- Image on the left -->
+    <div class="flex-shrink-0 mb-3 mb-md-0 me-md-4" style="max-width: 60%;">
+      <img src="{{ art.art_image.url }}" class="img-fluid" alt="{{ art.title }}">
+    </div>
+    
+    <!-- Content on the right -->
+    <div>
+      <h2>{{ art.title }}</h2>
+      <small class="fs-6 mb-1 d-block">Artist: {{ art.artist }}</small>
+       {% if art.size == 0  %} <small class="fs-6 mb-4 d-block">Size: Small </small>
+       {% elif art.size == 1 %} <small class="fs-6 mb-4 d-block">Size: Medium </small>
+       {% else %} <small class="fs-6 mb-4 d-block">Size: Large </small>
+       {% endif %}
+      <p class="mb-2"><em>Published on: {{ art.created_on }}</em></p>
+      {{ art.description | safe }}
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
