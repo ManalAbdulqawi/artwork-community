@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <h3>{% trans "Sign In" %}</h3>
+            <p>{% blocktrans %}Log in to the Art Work Community to add your artwork or leave a comment about others artwork.{% endblocktrans %}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button class="btn btn-outline-dark" type="submit">{% trans "Sign In" %}</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+           <p>{% blocktrans %}
+           If you have not created an account yet, then <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ signup_url }}">sign up</a>
+                first.{% endblocktrans %}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

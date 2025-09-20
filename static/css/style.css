@@ -2,7 +2,6 @@ body {
     background-color: #F9FAFC;
     padding-top: 70px;
 }
-
 .logo {
     font-family: Paprika, sans-serif;
     font-size: 1.7rem;
@@ -14,7 +13,9 @@ body {
     -webkit-text-fill-color: transparent; /* for Safari */
     
 }
-
+.text-black {
+  color: #000 !important;
+}
 .row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -49,7 +50,7 @@ body {
 }
 
 .dark-bg {
-    background: linear-gradient(to right, #cf3a04, #1434ed,rgb(225, 11, 182),rgb(2, 159, 2));;
+    background-color: #1a1918;
 }
 
 .main-bg {
@@ -64,7 +65,6 @@ body {
     color: #026b0b;
 }
 
-
 .art-link {
     color: #0a0301;
     text-decoration: none;
@@ -77,6 +77,20 @@ h4 {
   display: inline; /* ensures the text stays on one line */
   margin: 0; /* optional */
 }
+
+.footer-link {
+  color: #fff !important;
+  text-decoration: none ;
+  transition: all 0.3s ease !important;;
+}
+
+.footer-link:hover {
+  transform: scale(1);
+  color: #07ef1b !important;;
+}
+
+
+
 
 
 
