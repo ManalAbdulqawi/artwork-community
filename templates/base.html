@@ -5,8 +5,8 @@
 {% url 'artists_list' as artists_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
+{% url 'my_artwork' as myartwork_url %}
 {% url 'account_logout' as logout_url %}
-
 
 
 <!DOCTYPE html>
@@ -60,6 +60,10 @@
                             href="{% url 'artists_list' %}">Artists</a>
                     </li>
                     {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link link {% if request.path == myartwork_url %}active{% endif %}" aria-current="page"
+                           href="{% url 'my_artwork' user_id=user.id %}">My Artwork</a>
+                    </li>
                      <li class="nav-item">
                         <a class="nav-link link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
                            href="{% url 'account_logout' %}">Logout</a>
@@ -94,7 +98,7 @@
     <!-- Footer -->
 <footer class="footer  dark-bg text-center text-white">
      <div class="container-fluid text-center justify-content-center">
-    <div class="row row-cols-3 g-1 py-5 px-lg-5 px-sm-0 justify-content-center ">
+    <div class="row row-cols-3 g-1 py-2 px-lg-5 px-sm-0 justify-content-center ">
     <!-- Left side: Contact Us -->
     <div class="column">
       <h3 >Contact Us</h3>
@@ -104,7 +108,6 @@
     <div class="column ">
         <h3 >About Art Work</h3>
          <p >Art Work is your exhibition to display your artwork</p>
-        </p>
     </div>
     <!-- Right side: About Art Work -->
     <div class="column">
@@ -113,6 +116,9 @@
     </div>
   </div>
   </div>
+   <div class="text-center copywrite">
+                <p>&copy; 2025 Art Work. All rights reserved.</p>
+            </div>
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">

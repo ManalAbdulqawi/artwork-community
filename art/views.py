@@ -40,3 +40,13 @@ def artist_artwork(request, artist_id):
          "artist": artist},
     )
 
+def my_artwork(request, user_id):
+    artworks = Artwork.objects.filter(artist=user_id)
+    artworks_count = artworks.filter(artist=user_id).count()
+    return render(
+        request,
+        "art/my_artwork.html",
+        {"artworks": artworks,
+         "artworks_count":artworks_count,},
+    )
+
