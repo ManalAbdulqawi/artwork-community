@@ -23,11 +23,15 @@ def artwork_detail(request, slug):
 
     queryset = Artwork.objects.all()
     art = get_object_or_404(queryset, slug=slug)
+    comments = art.comments.all().order_by("-created_on")
+    comment_count = art.comments.count()
 
     return render(
         request,
         "art/artwork_detail.html",
-        {"art": art},
+        {"art": art,
+         "comments": comments,
+         "comment_count": comment_count,},
     )    
 
 def artist_artwork(request, artist_id):
