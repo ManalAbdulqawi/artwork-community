@@ -8,6 +8,10 @@ urlpatterns = [
     path('artist/<int:artist_id>/artworks/', views.artist_artwork, name='artist_artwork'),
     path('myartwork/<int:user_id>/', views.my_artwork, name='my_artwork'),
     path('<slug:slug>/', views.artwork_detail, name='artwork_detail'),
+    path('<slug:slug>/edit_comment/<int:comment_id>',
+         views.comment_edit, name='comment_edit'),
+    path('<slug:slug>/delete_comment/<int:comment_id>',
+         views.comment_delete, name='comment_delete'),     
     
     
 ]
