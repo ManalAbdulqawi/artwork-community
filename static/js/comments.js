@@ -1,3 +1,28 @@
+
+
+
+const editBtn = document.getElementById('editBtn');
+ const textarea = document.getElementById("id_description");
+  const form = document.getElementById('editForm');
+  const submitBtn = document.getElementById('editArtBtnSubmit');
+  if (editBtn){
+  editBtn.addEventListener('click', () => {
+      // Get the inner text of the description div
+      const description = editBtn.getAttribute('data-description');
+      // Fill the textarea
+      textarea.value = description;
+
+      // Optional: set form action URL dynamically
+      // e.g., form.setAttribute('action', '/edit_artwork/{{ art.id }}/');
+      // or construct via JavaScript if you have the URL
+      // form.setAttribute('action', `/edit_artwork/{{ art.id }}/`);
+      
+      // Change the submit button text if needed
+    submitBtn.innerText = 'Update';
+      form.setAttribute("action", "edit_artwork/");
+    });}
+  
+
 const editButtons = document.getElementsByClassName("btn-dark");
 const commentText = document.getElementById("id_body");
 const commentForm = document.getElementById("commentForm");
@@ -44,3 +69,9 @@ for (let button of deleteButtons) {
     deleteModal.show();
   });
 }
+
+
+
+
+
+

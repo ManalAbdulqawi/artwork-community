@@ -4,7 +4,11 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import Artwork,Comment
 from .models import User
+from django.utils.text import slugify
+
 from .forms import CommentForm
+from .forms import ArtworkForm
+from .forms import ArtworkFormEdit
 
 
 
@@ -29,6 +33,8 @@ def artwork_detail(request, slug):
     art = get_object_or_404(queryset, slug=slug)
     comments = art.comments.all().order_by("-created_on")
     comment_count = art.comments.count()
+    artwork_form_edit= ArtworkFormEdit()
+
 
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
@@ -52,6 +58,7 @@ def artwork_detail(request, slug):
          "comments": comments,
          "comment_count": comment_count,
          "comment_form": comment_form,
+         "artwork_form_edit": artwork_form_edit,
 },
     )    
 
@@ -68,11 +75,30 @@ def artist_artwork(request, artist_id):
 def my_artwork(request, user_id):
     artworks = Artwork.objects.filter(artist=user_id)
     artworks_count = artworks.filter(artist=user_id).count()
+
+    
+
+
+    if request.method == "POST":
+        artwork_form = ArtworkForm(request.POST, request.FILES)
+        if artwork_form.is_valid():
+            artwork = artwork_form.save(commit=False)
+            title = artwork_form.cleaned_data['title']
+            slug = slugify(title)
+            artwork.slug = slug
+            artwork.artist = request.user
+            artwork.save()
+            messages.add_message(
+            request, messages.SUCCESS,
+           'New Artwork submitted')
+    artwork_form = ArtworkForm()
+
     return render(
         request,
         "art/my_artwork.html",
         {"artworks": artworks,
-         "artworks_count":artworks_count,},
+         "artworks_count":artworks_count,
+         "artwork_form": artwork_form,},
     )
 
 
@@ -110,5 +136,26 @@ def comment_delete(request, slug, comment_id):
         messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
     else:
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
+
+    return HttpResponseRedirect(reverse('artwork_detail', args=[slug]))
+
+
+
+def artwork_edit(request, slug):
+    """
+    view to edit artwork description and size
+    """
+    if request.method == "POST":
+
+        queryset = Artwork.objects.all()
+        art = get_object_or_404(queryset, slug=slug)
+        #comment = get_object_or_404(Comment, pk=comment_id)
+        artwork_form_edit = ArtworkFormEdit(data=request.POST, instance=art)
+
+        if artwork_form_edit.is_valid() and art.artist == request.user:
+            art = artwork_form_edit.save()
+            messages.add_message(request, messages.SUCCESS, 'Artwork Updated!')
+        else:
+            messages.add_message(request, messages.ERROR, 'Error updating artwork!')
 
     return HttpResponseRedirect(reverse('artwork_detail', args=[slug]))
