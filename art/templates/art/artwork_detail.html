@@ -21,13 +21,16 @@
        {% elif art.size == 1 %} <small class="fs-6 mb-4 d-block">Size: Medium </small>
        {% else %} <small class="fs-6 mb-4 d-block">Size: Large </small>
        {% endif %}
+      <div class="mb-2" id="artDescriptionDiv">Description: {{ art.description | safe }}</div>
+      {% if art.artist.email %}
+      <p class="mb-2">Artist's email for enquiry: {{ art.artist.email }}</p>{% endif %}
       <p class="mb-2"><em>Published on: {{ art.created_on }}</em></p>
-      <div id="artDescriptionDiv">{{ art.description | safe }}</div>
+
     </div>
     <div class="mt-3">
         {% if user.is_authenticated and art.artist == user %}
         <button class="btn btn-outline-dark" id ="editBtn" data-description="{{ art.description|escapejs }}">Edit</button>
-        <button class="btn btn-outline-danger ms-4">Delete</button>
+        <button class="btn btn-outline-danger ms-4" id="deleteBtn">Delete</button>
         {% endif %}
     </div>
 
@@ -43,7 +46,6 @@
           <button id="editArtBtnSubmit" type="submit"
             class="btn btn-outline-success">Submit</button>
         </form>
-       
       </div>
     </div>
      {% endif %}
@@ -53,7 +55,29 @@
     
   </div>
 
-  
+  <div class="modal fade" id="deleteArtModal" tabindex="-1"
+  aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+          id="deletArteModalLabel">Delete Artwork?</h5>
+        <button type="button" class="btn-close"
+          data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete your artwork?
+        This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+          data-bs-dismiss="modal">Cancle</button>
+        <a id="deleteArtConfirm" href="#" class="btn
+          btn-outline-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- Displaying count of comments -->
   <div class="row">

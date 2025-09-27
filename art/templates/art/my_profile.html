@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+ <div class="addform container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="col-12 col-md-6">
+        {% if user.is_authenticated and profile.first_name and profile.last_name and profile.email%}
+
+         <h2 class="text-center">Your First Name:{{profile.first_name}} </h2>
+         <h2 class="text-center">Your Last Name: {{profile.last_name}}</h2>
+        <h2 class="text-center">Your Email: {{profile.email}}</h2>
+        <strong class="text-success">Your first name, last name, and email are essential for viewers of your artwork to reach out to you about your work.</strong>
+           
+        {% else %}
+
+         <h2 class="text-center mb-4">Update Your Profile</h2>
+            <p class="mb-4">Please add your first name, last name, and email so viewers of your artwork can contact you regarding your work.</p>
+            <form id="artworkForm" method="post" enctype="multipart/form-data">
+                {{ user_form|crispy }}
+                {% csrf_token %}
+                <div class="d-grid gap-2">
+                    <button id="submitButton" class="btn btn-success" type="submit">Submit</button>
+                </div>
+            </form>
+           
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

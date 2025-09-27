@@ -7,45 +7,17 @@
 <!-- index.html content starts here -->
 <div class="container-fluid">
    <div class="heading pt-4 d-flex flex-column flex-md-row justify-content-center align-items-center">
-    <h3 class="pt-4 mb-3 mb-md-0 text-center">
+    <h5 class="pt-4 mb-3 mb-md-0 text-center">
     {% if user.is_authenticated %} 
-      Welcome {% if user.first_name and user.last_name %} {{ user.first_name }} {{ user.last_name }} {% else %} {{ user.username }} {% endif %} Your Artwork List {{ artworks_count }} Artworks
+      Welcome {% if user.first_name and user.last_name %} {{ user.first_name }} {{ user.last_name }} {% else %} {{ user.username }} {% endif %} Your Artwork List <strong class="text-success">{{ artworks_count }} Artworks</strong> Listed Below The Form.
     {% else %}
       You Have to Login
     {% endif %}
-    </h3>
-    {% if artworks_count %}
-    <a href="#addform" class="btn btn-success ms-md-4 mt-4">
-    Add New Artwork
-    </a>
-    {% endif %}
+    </h5>
+
+    
    </div>
-    <div class="row py-5 px-lg-5 px-sm-0">
-
-        <!-- Artwork Entries Column -->
-        {% if user.is_authenticated and artworks_count  %} 
-            
-                {% for art in artworks %}
-                <div class="column">
-                    
-                      <div class="text-center img-item">
-                         <a href="{% url 'artwork_detail' art.slug %}" class="art-link">
-                        <img  src="{{ art.art_image.url}}" class="img-fluid" alt="{{ art.title }}">
-                        <h5 class="mt-2 mb-5">{{ art.title }}</h6></a>
-                      </div>
-                            
-              
-                
-                    
-                </div>
-             {% endfor %}
-        {% endif %}
-
-            
-        
-    </div>
-    <section id="addform">
-  <div class="addform container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="addform container-fluid min-vh-100 d-flex justify-content-center align-items-center">
     <div class="col-12 col-md-6">
         {% if user.is_authenticated %}
             <h2 class="text-center mb-4">Add New Artwork</h2>
@@ -62,8 +34,22 @@
         {% endif %}
     </div>
 </div>
-</section>
-    
+    <div class="row py-5 px-lg-5 px-sm-0">
+        <!-- Artwork Entries Column -->
+        {% if user.is_authenticated and artworks_count  %} 
+            
+                {% for art in artworks %}
+                <div class="column">
+                    
+                      <div class="text-center img-item">
+                         <a href="{% url 'artwork_detail' art.slug %}" class="art-link">
+                        <img  src="{{ art.art_image.url}}" class="img-fluid" alt="{{ art.title }}">
+                        <h5 class="mt-2 mb-5">{{ art.title }}</h6></a>
+                      </div>
+                    </div>
+             {% endfor %}
+        {% endif %}    
+    </div>   
 </div>
 
 <!-- index.html content ends here -->

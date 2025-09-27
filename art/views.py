@@ -9,6 +9,8 @@ from django.utils.text import slugify
 from .forms import CommentForm
 from .forms import ArtworkForm
 from .forms import ArtworkFormEdit
+from .forms import ProfileFormEdit
+
 
 
 
@@ -75,10 +77,6 @@ def artist_artwork(request, artist_id):
 def my_artwork(request, user_id):
     artworks = Artwork.objects.filter(artist=user_id)
     artworks_count = artworks.filter(artist=user_id).count()
-
-    
-
-
     if request.method == "POST":
         artwork_form = ArtworkForm(request.POST, request.FILES)
         if artwork_form.is_valid():
@@ -88,6 +86,7 @@ def my_artwork(request, user_id):
             artwork.slug = slug
             artwork.artist = request.user
             artwork.save()
+            artworks_count += 1
             messages.add_message(
             request, messages.SUCCESS,
            'New Artwork submitted')
@@ -159,3 +158,42 @@ def artwork_edit(request, slug):
             messages.add_message(request, messages.ERROR, 'Error updating artwork!')
 
     return HttpResponseRedirect(reverse('artwork_detail', args=[slug]))
+
+
+
+def artwork_delete(request, slug):
+    """
+    view to edit artwork description and size
+    """
+    
+
+    queryset = Artwork.objects.all()
+    art = get_object_or_404(queryset, slug=slug)
+
+    if art.artist == request.user:
+        art.delete()
+        messages.add_message(request, messages.SUCCESS, 'Artwork Deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, 'Error Deleteing artwork!')
+
+    return HttpResponseRedirect(reverse('my_artwork',args=[art.artist.id]))
+
+
+
+def my_profile(request, user_id):
+    queryset = User.objects.all()
+    profile=get_object_or_404(queryset,id=user_id)
+    if request.method == "POST":
+        user_form = ProfileFormEdit(request.POST, instance=profile)
+        if user_form.is_valid() and profile.id == request.user.id:
+            profile = user_form.save()
+            messages.add_message(
+            request, messages.SUCCESS,
+           'Your Profile Updated')
+    user_form = ProfileFormEdit()
+    return render(
+        request,
+        "art/my_profile.html",
+        {"profile": profile,
+         "user_form": user_form,},
+    )

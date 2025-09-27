@@ -1,5 +1,7 @@
 from .models import Comment
 from .models import Artwork
+from .models import User
+
 from django import forms
 
 
@@ -19,4 +21,9 @@ class ArtworkFormEdit(forms.ModelForm):
     class Meta:
         model = Artwork
         fields =('description',)
+
+class ProfileFormEdit(forms.ModelForm):
+    class Meta:
+        model = User
+        fields =('email','first_name','last_name')
 
