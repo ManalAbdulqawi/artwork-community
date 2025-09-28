@@ -1,35 +1,6 @@
 
 
 
-const editBtn = document.getElementById('editBtn');
- const textarea = document.getElementById("id_description");
-  const form = document.getElementById('editForm');
-  const submitBtn = document.getElementById('editArtBtnSubmit');
-  if (editBtn){
-  editBtn.addEventListener('click', () => {
-      // Get the inner text of the description div
-      const description = editBtn.getAttribute('data-description');
-      // Fill the textarea
-      textarea.value = description;
-    
-    submitBtn.innerText = 'Update';
-    form.setAttribute("action", "edit_artwork/");
-    });}
-
-
-const deleteArtModal = new bootstrap.Modal(document.getElementById("deleteArtModal"));
-const deleteButton = document.getElementById("deleteBtn");
-const deleteArtConfirm = document.getElementById("deleteArtConfirm");
- if (editBtn){
-   deleteButton.addEventListener("click", (e) => {
-   deleteArtConfirm.href = "delete_artwork/";
-    deleteArtModal.show();
-  });}
-
-
-
-
-
 const editButtons = document.getElementsByClassName("commentEdit");
 const commentText = document.getElementById("id_body");
 const commentForm = document.getElementById("commentForm");
@@ -45,10 +16,8 @@ const submitButton = document.getElementById("submitButton");
 * - Sets the form's action attribute to the `edit_comment/{commentId}` endpoint.
 */
 for (let button of editButtons) {
-    console.log("manaaal")
   button.addEventListener("click", (e) => {
-    console.log("saleh")
-    let commentId = e.target.getAttribute("comment_id");
+    let commentId = e.target.getAttribute("data-comment_id");
     let commentContent = document.getElementById(`comment${commentId}`).innerText;
     commentText.value = commentContent;
     submitButton.innerText = "Update";
@@ -71,7 +40,7 @@ const deleteConfirm = document.getElementById("deleteConfirm");
 */
 for (let button of deleteButtons) {
   button.addEventListener("click", (e) => {
-    let commentId = e.target.getAttribute("comment_id");
+    let commentId = e.target.getAttribute("data-comment_id");
     deleteConfirm.href = `delete_comment/${commentId}`;
     deleteModal.show();
   });

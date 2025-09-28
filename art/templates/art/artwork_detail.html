@@ -16,14 +16,14 @@
     <div class="w-100">
     <div>
       <h2>{{ art.title }}</h2>
-      <small class="fs-6 mb-1 d-block">Artist: {% if art.artist.first_name and art.artist.last_name  %}<a href="{% url 'artist_artwork' art.artist.id %}" class="art-link">{{ art.artist.first_name }} {{ art.artist.last_name }}</a> {% else %}<a href="{% url 'artist_artwork' art.artist.id %}" class="art-link"> {{ art.artist }} </a>{% endif %}</small>
-       {% if art.size == 0  %} <small class="fs-6 mb-2 d-block">Size: Small </small>
-       {% elif art.size == 1 %} <small class="fs-6 mb-2 d-block">Size: Medium </small>
-       {% else %} <small class="fs-6 mb-2 d-block">Size: Large </small>
+      <small class="fs-6 mb-1 d-block"><strong>Artist:</strong> {% if art.artist.first_name and art.artist.last_name  %}<a href="{% url 'artist_artwork' art.artist.id %}" class="art-link">{{ art.artist.first_name }} {{ art.artist.last_name }}</a> {% else %}<a href="{% url 'artist_artwork' art.artist.id %}" class="art-link"> {{ art.artist }} </a>{% endif %}</small>
+       {% if art.size == 0  %} <small class="fs-6 mb-2 d-block"><strong>Size:</strong> Small </small>
+       {% elif art.size == 1 %} <small class="fs-6 mb-2 d-block"><strong>Size:</strong> Medium </small>
+       {% else %} <small class="fs-6 mb-2 d-block"><strong>Size:</strong> Large </small>
        {% endif %}
-      <div class="mb-2" id="artDescriptionDiv">Description: {{ art.description | safe }}</div>
+      <div class="mb-2" id="artDescriptionDiv"><strong>Description:</strong> {{ art.description | safe }}</div>
       {% if art.artist.email %}
-      <p class="mb-2">Artist's email for enquiry: {{ art.artist.email }}</p>{% endif %}
+      <p class="mb-2"><strong>Artist's email for enquiry:</strong> {{ art.artist.email }}</p>{% endif %}
       <p class="mb-2"><em>Published on: {{ art.created_on }}</em></p>
 
     </div>
@@ -92,37 +92,7 @@
  </div>
  
 
-  <!-- Displaying Comments -->
-  <div class="row">
-    <div class="col-md-8 mb-4  mt-3 ">
-      <h3>Comments:</h3>
-      <div class="fs-6 mb-1 d-block">
-        <!-- We want a for loop inside the empty control tags
-          to iterate through each comment in comments -->
-        {% for comment in comments %}
-        <div class="p-2">
-          <p class="font-weight-bold text-black">
-            <h6>{{ comment.artist }}</h6>
-            <span class="font-weight-normal">
-              {{ comment.created_on }}
-            </span> wrote:
-          </p>
-          <div id="comment{{ comment.id }}">
-            {{ comment.body | linebreaks }}
-          </div>
-        {% if user.is_authenticated and comment.artist == user %}
-        <button class="btn btn-dark commentEdit" 
-        comment_id="{{ comment.id }}">Edit</button>
-        <button class="btn btn-danger commentDelete ms-4" comment_id="{{ comment.id }}">Delete</button>
-        {% endif %}
-        </div>
-        <!-- Our for loop ends here -->
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-
-   <!-- Creating New Comments -->
+ <!-- Creating New Comments -->
     <div class="col-md-4 card mb-4 mt-3">
       <div class="card-body">
         {% if user.is_authenticated %}
@@ -140,6 +110,36 @@
         {% endif %}
       </div>
     </div>
+
+  <!-- Displaying Comments -->
+  <div class="row">
+    <div class="col-md-8 mb-4  mt-3 ">
+      <h3>Comments:</h3>
+      <div class="fs-6 mb-1 d-block">
+        <!-- We want a for loop inside the empty control tags
+          to iterate through each comment in comments -->
+        {% for comment in comments %}
+        <div class="p-2">
+          <div class="comment-header">
+             <h6 class="font-weight-bold text-black">{{ comment.artist }}</h6>
+             <small class="font-weight-normal">{{ comment.created_on }}</small> wrote:
+         </div>
+          <div class="mt-2" id="comment{{ comment.id }}">
+            {{ comment.body | linebreaks }}
+          </div>
+        {% if user.is_authenticated and comment.artist == user %}
+        <button class="btn btn-dark commentEdit" 
+        data-comment_id="{{ comment.id }}">Edit</button>
+        <button class="btn btn-danger commentDelete ms-4" data-comment_id="{{ comment.id }}">Delete</button>
+        {% endif %}
+        </div>
+        <!-- Our for loop ends here -->
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+   
 
 </div>
 

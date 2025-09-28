@@ -1,42 +1,36 @@
-from django.shortcuts import render,get_object_or_404,reverse
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .models import Artwork,Comment
+from .models import Artwork, Comment
 from .models import User
 from django.utils.text import slugify
-
 from .forms import CommentForm
 from .forms import ArtworkForm
 from .forms import ArtworkFormEdit
 from .forms import ProfileFormEdit
-
-
-
-
 # Create your views here.
+
+
 class ArtworkList(generic.ListView):
     queryset = Artwork.objects.all()
     template_name = "art/index.html"
-
-    
 
 
 class ArtistsList(generic.ListView):
     queryset = User.objects.filter(id__in=Artwork.objects.values_list('artist', flat=True).distinct()).order_by("username")
     template_name = "art/artists_list.html"  
 
+
 def artwork_detail(request, slug):
     """
     
     """
-
     queryset = Artwork.objects.all()
     art = get_object_or_404(queryset, slug=slug)
     comments = art.comments.all().order_by("-created_on")
     comment_count = art.comments.count()
-    artwork_form_edit= ArtworkFormEdit()
-
+    artwork_form_edit = ArtworkFormEdit()
 
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
@@ -47,13 +41,9 @@ def artwork_detail(request, slug):
             comment_count +=1
             comment.save()
             messages.add_message(
-        request, messages.SUCCESS,
-        'Comment submitted'
-    )
+                request, messages.SUCCESS, 'Comment submitted')
 
     comment_form = CommentForm()
-
-
     return render(
         request,
         "art/artwork_detail.html",
@@ -62,8 +52,8 @@ def artwork_detail(request, slug):
          "comment_count": comment_count,
          "comment_form": comment_form,
          "artwork_form_edit": artwork_form_edit,
-},
-    )    
+         },)    
+
 
 def artist_artwork(request, artist_id):
     artworks = Artwork.objects.filter(artist=artist_id)
@@ -74,6 +64,7 @@ def artist_artwork(request, artist_id):
         {"artworks": artworks,
          "artist": artist},
     )
+
 
 def my_artwork(request, user_id):
     artworks = Artwork.objects.filter(artist=user_id)
@@ -92,14 +83,12 @@ def my_artwork(request, user_id):
             request, messages.SUCCESS,
            'New Artwork submitted')
     artwork_form = ArtworkForm()
-
     return render(
         request,
         "art/my_artwork.html",
         {"artworks": artworks,
-         "artworks_count":artworks_count,
-         "artwork_form": artwork_form,},
-    )
+         "artworks_count": artworks_count,
+         "artwork_form": artwork_form, } ,)
 
 
 def comment_edit(request, slug, comment_id):
@@ -123,6 +112,7 @@ def comment_edit(request, slug, comment_id):
 
     return HttpResponseRedirect(reverse('artwork_detail', args=[slug]))
 
+
 def comment_delete(request, slug, comment_id):
     """
     view to delete comment
@@ -138,7 +128,6 @@ def comment_delete(request, slug, comment_id):
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
     return HttpResponseRedirect(reverse('artwork_detail', args=[slug]))
-
 
 
 def artwork_edit(request, slug):
@@ -166,8 +155,6 @@ def artwork_delete(request, slug):
     """
     view to edit artwork description and size
     """
-    
-
     queryset = Artwork.objects.all()
     art = get_object_or_404(queryset, slug=slug)
 
@@ -177,24 +164,21 @@ def artwork_delete(request, slug):
     else:
         messages.add_message(request, messages.ERROR, 'Error Deleteing artwork!')
 
-    return HttpResponseRedirect(reverse('my_artwork',args=[art.artist.id]))
-
+    return HttpResponseRedirect(reverse('my_artwork', args=[art.artist.id]))
 
 
 def my_profile(request, user_id):
     queryset = User.objects.all()
-    profile=get_object_or_404(queryset,id=user_id)
+    profile = get_object_or_404(queryset,id=user_id)
     if request.method == "POST":
         user_form = ProfileFormEdit(request.POST, instance=profile)
         if user_form.is_valid() and profile.id == request.user.id:
             profile = user_form.save()
             messages.add_message(
-            request, messages.SUCCESS,
-           'Your Profile Updated')
+                request, messages.SUCCESS, 'Your Profile Updated')
     user_form = ProfileFormEdit()
     return render(
         request,
         "art/my_profile.html",
         {"profile": profile,
-         "user_form": user_form,},
-    )
+         "user_form": user_form, }, )
