@@ -44,6 +44,7 @@ def artwork_detail(request, slug):
             comment = comment_form.save(commit=False)
             comment.artist = request.user
             comment.artwork = art
+            comment_count +=1
             comment.save()
             messages.add_message(
         request, messages.SUCCESS,

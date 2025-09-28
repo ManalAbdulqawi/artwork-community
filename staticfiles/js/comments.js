@@ -11,7 +11,6 @@ const editBtn = document.getElementById('editBtn');
       const description = editBtn.getAttribute('data-description');
       // Fill the textarea
       textarea.value = description;
-    // Show the form container
     
     submitBtn.innerText = 'Update';
     form.setAttribute("action", "edit_artwork/");
@@ -21,22 +20,20 @@ const editBtn = document.getElementById('editBtn');
 const deleteArtModal = new bootstrap.Modal(document.getElementById("deleteArtModal"));
 const deleteButton = document.getElementById("deleteBtn");
 const deleteArtConfirm = document.getElementById("deleteArtConfirm");
-
+ if (editBtn){
    deleteButton.addEventListener("click", (e) => {
-    deleteArtConfirm.href = "delete_artwork/";
+   deleteArtConfirm.href = "delete_artwork/";
     deleteArtModal.show();
-  });
+  });}
 
-const editButtons = document.getElementsByClassName("btn-dark");
+
+
+
+
+const editButtons = document.getElementsByClassName("commentEdit");
 const commentText = document.getElementById("id_body");
 const commentForm = document.getElementById("commentForm");
 const submitButton = document.getElementById("submitButton");
-
-const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
-const deleteButtons = document.getElementsByClassName("btn-danger");
-const deleteConfirm = document.getElementById("deleteConfirm");
-
-
 /**
 * Initializes edit functionality for the provided edit buttons.
 * 
@@ -48,7 +45,9 @@ const deleteConfirm = document.getElementById("deleteConfirm");
 * - Sets the form's action attribute to the `edit_comment/{commentId}` endpoint.
 */
 for (let button of editButtons) {
+    console.log("manaaal")
   button.addEventListener("click", (e) => {
+    console.log("saleh")
     let commentId = e.target.getAttribute("comment_id");
     let commentContent = document.getElementById(`comment${commentId}`).innerText;
     commentText.value = commentContent;
@@ -57,6 +56,9 @@ for (let button of editButtons) {
   });
 }
 
+const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
+const deleteButtons = document.getElementsByClassName("commentDelete");
+const deleteConfirm = document.getElementById("deleteConfirm");
 /**
 * Initializes deletion functionality for the provided delete buttons.
 * 

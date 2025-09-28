@@ -17,9 +17,9 @@
     <div>
       <h2>{{ art.title }}</h2>
       <small class="fs-6 mb-1 d-block">Artist: {% if art.artist.first_name and art.artist.last_name  %}<a href="{% url 'artist_artwork' art.artist.id %}" class="art-link">{{ art.artist.first_name }} {{ art.artist.last_name }}</a> {% else %}<a href="{% url 'artist_artwork' art.artist.id %}" class="art-link"> {{ art.artist }} </a>{% endif %}</small>
-       {% if art.size == 0  %} <small class="fs-6 mb-4 d-block">Size: Small </small>
-       {% elif art.size == 1 %} <small class="fs-6 mb-4 d-block">Size: Medium </small>
-       {% else %} <small class="fs-6 mb-4 d-block">Size: Large </small>
+       {% if art.size == 0  %} <small class="fs-6 mb-2 d-block">Size: Small </small>
+       {% elif art.size == 1 %} <small class="fs-6 mb-2 d-block">Size: Medium </small>
+       {% else %} <small class="fs-6 mb-2 d-block">Size: Large </small>
        {% endif %}
       <div class="mb-2" id="artDescriptionDiv">Description: {{ art.description | safe }}</div>
       {% if art.artist.email %}
@@ -111,9 +111,9 @@
             {{ comment.body | linebreaks }}
           </div>
         {% if user.is_authenticated and comment.artist == user %}
-        <button class="btn btn-dark" 
+        <button class="btn btn-dark commentEdit" 
         comment_id="{{ comment.id }}">Edit</button>
-        <button class="btn btn-danger ms-4" comment_id="{{ comment.id }}">Delete</button>
+        <button class="btn btn-danger commentDelete ms-4" comment_id="{{ comment.id }}">Delete</button>
         {% endif %}
         </div>
         <!-- Our for loop ends here -->
@@ -170,5 +170,6 @@
 {% endblock content %}
 {% block extras %}
 <script src="{% static 'js/comments.js' %}"></script>
+<script src="{% static 'js/artwork.js' %}"></script>
 {% endblock %}
 

@@ -1,42 +1,10 @@
 
 
 
-const editBtn = document.getElementById('editBtn');
- const textarea = document.getElementById("id_description");
-  const form = document.getElementById('editForm');
-  const submitBtn = document.getElementById('editArtBtnSubmit');
-  if (editBtn){
-  editBtn.addEventListener('click', () => {
-      // Get the inner text of the description div
-      const description = editBtn.getAttribute('data-description');
-      // Fill the textarea
-      textarea.value = description;
-    // Show the form container
-    
-    submitBtn.innerText = 'Update';
-    form.setAttribute("action", "edit_artwork/");
-    });}
-
-
-const deleteArtModal = new bootstrap.Modal(document.getElementById("deleteArtModal"));
-const deleteButton = document.getElementById("deleteBtn");
-const deleteArtConfirm = document.getElementById("deleteArtConfirm");
-
-   deleteButton.addEventListener("click", (e) => {
-    deleteArtConfirm.href = "delete_artwork/";
-    deleteArtModal.show();
-  });
-
-const editButtons = document.getElementsByClassName("btn-dark");
+const editButtons = document.getElementsByClassName("commentEdit");
 const commentText = document.getElementById("id_body");
 const commentForm = document.getElementById("commentForm");
 const submitButton = document.getElementById("submitButton");
-
-const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
-const deleteButtons = document.getElementsByClassName("btn-danger");
-const deleteConfirm = document.getElementById("deleteConfirm");
-
-
 /**
 * Initializes edit functionality for the provided edit buttons.
 * 
@@ -57,6 +25,9 @@ for (let button of editButtons) {
   });
 }
 
+const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
+const deleteButtons = document.getElementsByClassName("commentDelete");
+const deleteConfirm = document.getElementById("deleteConfirm");
 /**
 * Initializes deletion functionality for the provided delete buttons.
 * 
