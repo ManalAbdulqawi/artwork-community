@@ -7,6 +7,9 @@ SIZE = ((0, "Small"), (1, "Medium"),(2,"Large"))
 
 # Create your models here.
 class Artwork(models.Model):
+    """
+    Stores a single Artwork entry related to :model:`auth.User`
+    """
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     artist = models.ForeignKey(
@@ -24,7 +27,7 @@ class Artwork(models.Model):
 class Comment(models.Model):
     """
     Stores a single comment entry related to :model:`auth.User`
-    and :model:`blog.Post`.
+    and :model:`art.Artwork`.
     """
     artwork = models.ForeignKey('Artwork',on_delete=models.CASCADE,related_name="comments")
     artist = models.ForeignKey(User, on_delete=models.CASCADE,related_name="commenter")

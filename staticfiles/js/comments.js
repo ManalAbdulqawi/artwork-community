@@ -1,6 +1,5 @@
 
 
-
 const editButtons = document.getElementsByClassName("commentEdit");
 const commentText = document.getElementById("id_body");
 const commentForm = document.getElementById("commentForm");

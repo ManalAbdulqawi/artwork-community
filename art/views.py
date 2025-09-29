@@ -13,6 +13,19 @@ from .forms import ProfileFormEdit
 
 
 class ArtworkList(generic.ListView):
+    """
+    Returns all published Artwork in :model:`art.Artwork`
+    and displays them in a long scrolled page. 
+    **Context**
+
+    ``queryset``
+        All instances of :model:`art.Artwork`
+
+    **Template:**
+
+    :template:`art/index.html`
+
+    """
     queryset = Artwork.objects.all()
     template_name = "art/index.html"
 
@@ -24,7 +37,25 @@ class ArtistsList(generic.ListView):
 
 def artwork_detail(request, slug):
     """
-    
+    Display an individual :model:`art.Artwork`.
+
+    **Context**
+
+    ``art``
+        An instance of :model:`art.Artwork`.
+    ``comments``
+        All comments related to the art.
+    ``comment_count``
+        A count of comments related to the art.
+    ``comment_form``
+        An instance of :form:`art.CommentForm`
+    ``artwork_form_edit``
+        An instance of :form:`art.ArtworkFormEdit`
+
+    **Template:**
+
+    :template:`art/artwork_detail.html`
+
     """
     queryset = Artwork.objects.all()
     art = get_object_or_404(queryset, slug=slug)
@@ -56,6 +87,23 @@ def artwork_detail(request, slug):
 
 
 def artist_artwork(request, artist_id):
+
+    """
+    Returns all an artist's artwork in :model:`art.Artwork`
+    and displays them in a long scrolled page. 
+
+    **Context**
+
+    ``artorks``
+        All instances of an artist's artwork :model:`art.Artwork`
+    ``artist``  
+        An artist instance  :model:`art.auth.User`
+
+    **Template:**
+
+    :template:`art/artist_artwork.html`
+
+    """
     artworks = Artwork.objects.filter(artist=artist_id)
     artist = User.objects.get(id=artist_id)
     return render(
@@ -67,6 +115,29 @@ def artist_artwork(request, artist_id):
 
 
 def my_artwork(request, user_id):
+
+    """
+    Returns all login artist's artwork in :model:`art.Artwork`
+    and displays them in a long scrolled page with a form to add new artwork.
+
+     **Context**
+    ``artworks``
+        All artorks of login artist :model:`art.Artwork`.
+
+    ``artworks_count``
+        A count of artworks related to the login artist.
+
+    ``artwork_form``
+        An instance of :form:`art.ArtworkForm`
+    ``artwork_form_edit``
+        An instance of :form:`art.ArtworkFormEdit`
+
+    **Template:**
+
+    :template:`art/my_artwork.html`
+
+    """
+ 
     artworks = Artwork.objects.filter(artist=user_id)
     artworks_count = artworks.filter(artist=user_id).count()
     if request.method == "POST":
@@ -92,9 +163,20 @@ def my_artwork(request, user_id):
 
 
 def comment_edit(request, slug, comment_id):
+
     """
-    view to edit comments
+    Display an individual comment for edit.
+
+    **Context**
+
+    ``art``
+        An instance of :model:`art.Artwork`.
+    ``comment``
+        A single comment related to the art.
+    ``comment_form``
+        An instance of :form:`art.CommentForm`
     """
+
     if request.method == "POST":
 
         queryset = Artwork.objects.all()
@@ -115,7 +197,14 @@ def comment_edit(request, slug, comment_id):
 
 def comment_delete(request, slug, comment_id):
     """
-    view to delete comment
+    Delete an individual comment.
+
+    **Context**
+
+    ``art``
+        An instance of :model:`art.Artwork`.
+    ``comment``
+        A single comment related to the art.
     """
     queryset = Artwork.objects.all()
     art = get_object_or_404(queryset, slug=slug)
@@ -132,13 +221,20 @@ def comment_delete(request, slug, comment_id):
 
 def artwork_edit(request, slug):
     """
-    view to edit artwork description and size
+    Edit an individual Artworkm of login artist.
+
+    **Context**
+
+    ``art``
+        An instance of :model:`art.Artwork`.
+    ``artwork_form_edit``
+        An instance of :form:`art.ArtworkFormEdit`.
+
     """
     if request.method == "POST":
 
         queryset = Artwork.objects.all()
         art = get_object_or_404(queryset, slug=slug)
-        #comment = get_object_or_404(Comment, pk=comment_id)
         artwork_form_edit = ArtworkFormEdit(data=request.POST, instance=art)
 
         if artwork_form_edit.is_valid() and art.artist == request.user:
@@ -153,7 +249,13 @@ def artwork_edit(request, slug):
 
 def artwork_delete(request, slug):
     """
-    view to edit artwork description and size
+    Delete an individual Artworkm of login artist.
+
+    **Context**
+
+    ``art``
+        An instance of :model:`art.Artwork`.
+
     """
     queryset = Artwork.objects.all()
     art = get_object_or_404(queryset, slug=slug)
@@ -168,6 +270,25 @@ def artwork_delete(request, slug):
 
 
 def my_profile(request, user_id):
+
+    """
+    Returns an artist details :model:`art.auth.User`
+    to add artist's first name, last name and email if these are not exist. 
+
+    **Context**
+
+    ``queryset``
+        All artists :model:`art.auth.User`
+    ``profile``  
+        An artist instance  :model:`art.auth.User`
+    ``user_form``
+        An instance of :form:`art.ProfileFormEdit`.
+
+    **Template:**
+
+    :template:`art/my_profile.html`
+
+    """
     queryset = User.objects.all()
     profile = get_object_or_404(queryset,id=user_id)
     if request.method == "POST":
