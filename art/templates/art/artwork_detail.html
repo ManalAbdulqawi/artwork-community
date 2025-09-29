@@ -24,7 +24,7 @@
       <div class="mb-2" id="artDescriptionDiv"><strong>Description:</strong> {{ art.description | safe }}</div>
       {% if art.artist.email %}
       <p class="mb-2"><strong>Artist's email for enquiry:</strong> {{ art.artist.email }}</p>{% endif %}
-      <p class="mb-2"><em>Published on: {{ art.created_on }}</em></p>
+      <p class="mb-2"><em><strong>Published on:</strong> {{ art.created_on }}</em></p>
 
     </div>
     <div class="mt-3">
