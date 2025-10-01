@@ -6,14 +6,11 @@
 <!-- index.html content starts here -->
 <div class="container-fluid">
     <div class="heading pt-4 text-center justify-content-center">
-        
+
       <h3 class="pt-4"> {% if artist.first_name and artist.last_name %} {{ artist.first_name }} {{ artist.last_name }}  {% else %} {{ artist.username }} {% endif %}  Artwork</h3>
     </div>
     <div class="row py-5 px-lg-5 px-sm-0">
-
         <!-- Artwork Entries Column -->
-        
-            
                 {% for art in artworks %}
                 <div class="column">
                     
@@ -21,17 +18,10 @@
                          <a href="{% url 'artwork_detail' art.slug %}" class="art-link">
                         <img  src="{{ art.art_image.url}}" class="img-fluid" alt="{{ art.title }}">
                         <h5 class="mt-2 mb-5">{{ art.title }}</h6></a>
-                      </div>
-                            
-                        
-                    
+                      </div>        
                 </div>
-             {% endfor %}
-
-            
-        
-    </div>
-    
+             {% endfor %}    
+    </div>  
 </div>
 
 <!-- index.html content ends here -->
