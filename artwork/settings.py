@@ -27,9 +27,6 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s29shn_4-l%&t1q%6*g$-q3iiq_862_-acze7zhk02+#t7&zf1'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -54,6 +51,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'cloudinary',
     'art',
+    'contactme',
     
 ]
 

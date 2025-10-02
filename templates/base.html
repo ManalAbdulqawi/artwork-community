@@ -1,7 +1,7 @@
 {% load static %}
 
 {% url 'home' as home_url %}
-
+{% url 'contactme' as contactme_url %}
 {% url 'artists_list' as artists_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
@@ -30,6 +30,7 @@
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/art_icon.png' %}" />
     
 
 </head>
@@ -59,6 +60,10 @@
                     <li class="nav-item">
                         <a class="nav-link link {% if request.path == artists_url %}active{% endif %}" aria-current="page"
                             href="{% url 'artists_list' %}">Artists</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link link {% if request.path == contactme_url %}active{% endif %}" aria-current="page"
+                            href="{% url 'contactme' %}">Contact Us</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -121,12 +126,12 @@
     <!-- Left side: Contact Us -->
     <div class="column">
       <h3 >Contact Us</h3>
-      <p>Email: artwork@gmail.com</p>
+      <a href="{% url 'contactme' %}" class="footer-link">By filling out this form</a>
     
     </div>
     <div class="column ">
-        <h3 >About Art Work</h3>
-         <p >Art Work is your exhibition to display your artwork</p>
+        <h3>About Art Work</h3>
+         <p>Art Work is your exhibition to display your artwork</p>
     </div>
     <!-- Right side: About Art Work -->
     <div class="column">

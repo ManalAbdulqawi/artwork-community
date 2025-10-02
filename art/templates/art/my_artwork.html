@@ -21,7 +21,7 @@
     <div class="col-12 col-md-6">
         {% if user.is_authenticated %}
             <h2 class="text-center mb-4">Add New Artwork</h2>
-            <p class="text-center mb-4">You should fill all the forms field</p>
+            <p class="text-center mb-4">You should fill all the form's fields</p>
             <form id="artworkForm" method="post" enctype="multipart/form-data">
                 {{ artwork_form|crispy }}
                 {% csrf_token %}

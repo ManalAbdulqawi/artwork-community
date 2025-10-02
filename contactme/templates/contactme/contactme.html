@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+ <div class="addform container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="col-12 col-md-6">
+            <h2 class="text-center mb-4">Contact Us!</h2>
+            <p class="text-center mb-4">You should fill all the form's fields</p>
+            <form method="post">
+                {{ contactme_form | crispy }}
+                {% csrf_token %}
+                <div class="d-grid gap-2">
+                    <button id="submitButton" class="btn btn-success" type="submit">Submit</button>
+                </div>
+            </form>
+    </div>
+</div>
+{% endblock content %}
