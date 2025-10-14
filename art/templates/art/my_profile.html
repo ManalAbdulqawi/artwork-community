@@ -7,6 +7,7 @@
 
  <div class="addform container-fluid min-vh-100 d-flex justify-content-center align-items-center">
     <div class="col-12 col-md-6">
+        {% if user.id == profile.id %}
         {% if user.is_authenticated and profile.first_name and profile.last_name and profile.email%}
 
          <h2 class="text-center">Your First Name:{{profile.first_name}} </h2>
@@ -26,6 +27,9 @@
                 </div>
             </form>
            
+        {% endif %}
+        {% else %}
+        <h2 class="text-center mb-4">This is not your Profile</h2>
         {% endif %}
     </div>
 </div>
