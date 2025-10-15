@@ -30,7 +30,7 @@
 </div>
     <div class="row py-5 px-lg-5 px-sm-0">
         <!-- Artwork Entries Column -->
-        {% if user.is_authenticated and artworks_count  %} 
+        {% if user.is_authenticated and artworks_count and user.id == artist  %} 
             
                 {% for art in artworks %}
                 <div class="column">
