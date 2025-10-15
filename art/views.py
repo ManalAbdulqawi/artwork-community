@@ -140,6 +140,7 @@ def my_artwork(request, user_id):
  
     artworks = Artwork.objects.filter(artist=user_id)
     artworks_count = artworks.filter(artist=user_id).count()
+    artist=user_id
     if request.method == "POST":
         artwork_form = ArtworkForm(request.POST, request.FILES)
         if artwork_form.is_valid():
@@ -159,7 +160,8 @@ def my_artwork(request, user_id):
         "art/my_artwork.html",
         {"artworks": artworks,
          "artworks_count": artworks_count,
-         "artwork_form": artwork_form, } ,)
+         "artwork_form": artwork_form, 
+         "artist": artist,} ,)
 
 
 def comment_edit(request, slug, comment_id):

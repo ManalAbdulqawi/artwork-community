@@ -6,16 +6,14 @@
 <div class="container-fluid">
    <div class="heading pt-4 d-flex flex-column flex-md-row justify-content-center align-items-center">
     <h5 class="pt-4 mb-3 mb-md-0 text-center">
-    {% if user.is_authenticated %} 
+    {% if user.is_authenticated and  user.id == artist %} 
       Welcome {% if user.first_name and user.last_name %} {{ user.first_name }} {{ user.last_name }} {% else %} {{ user.username }} {% endif %} Your Artwork List <strong class="text-success">{{ artworks_count }} Artworks</strong> Listed Below The Form.
-    {% else %}
-      You Have to Login
     {% endif %}
     </h5>
    </div>
     <div class="addform container-fluid min-vh-100 d-flex justify-content-center align-items-center">
     <div class="col-12 col-md-6">
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and  user.id == artist  %}
             <h2 class="text-center mb-4">Add New Artwork</h2>
             <p class="text-center mb-4">You should fill all the form's fields</p>
             <form id="artworkForm" method="post" enctype="multipart/form-data">
