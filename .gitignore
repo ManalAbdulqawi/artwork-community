@@ -1,5 +1,10 @@
 .venv/
-db.sqlite3
+
 *.pyc
-__pycache__
+
+# Ignore database
+db.sqlite3
+
+# Ignore Python cache directories
+__pycache__/
 env.py
